@@ -1,0 +1,51 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>ExchangeOnlineManagement</id>
+    <version>3.9.2</version>
+    <authors>Microsoft Corporation</authors>
+    <owners>Microsoft Corporation</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://aka.ms/azps-license</licenseUrl>
+    <description>This is a General Availability (GA) release of the Exchange Online Powershell V3 module. Exchange Online cmdlets in this module are REST-backed and do not require Basic Authentication to be enabled in WinRM. REST-based connections in Windows require the PowerShellGet module, and by dependency, the PackageManagement module.
+Please check the documentation here - https://aka.ms/exov3-module.
+For issues related to the module, contact Microsoft support.</description>
+    <releaseNotes>---------------------------------------------------------------------------------------------
+What is new in this release:
+
+v3.9.2 :
+    1. Added cmdlets: Add-WorkforceInsightsDelegationAccess, Get-WorkforceInsightsDelegationAccess, Remove-WorkforceInsightsDelegationAccess for Workforce Insights delegation.
+    2. Introduced-EXOModuleBasePath switch in Connect-ExchangeOnline to store temporary EXO module files in a custom path.
+    3. Deprecated UseRpsSession parameter from Connect-ExchangeOnline and Connect-IPPSSession.
+
+---------------------------------------------------------------------------------------------
+Previous Releases:
+
+v3.9.0 :
+    1. Introduce -EnableSearchOnlySession switch in Connect-IPPSSession cmdlet, which enables certain eDiscovery and related cmdlets that connect to other M365 services
+    
+v3.8.1 :
+    1. Support for the MemberIds parameter in Get-VivaModuleFeaturePolicy cmdlet, allowing administrators to filter policies based on specific users or groups.
+    2. Support for the Detailed parameter in Get-VivaModuleFeatureEnablement cmdlet, enhancing the response with detailed information about the policies that apply to the user and which of those are actually effective in determining the enablement.
+    3. Added Client-side logging for Connect-IPPSSession.
+
+v3.8.0 :
+    1. Support for providing an Access Token with Connect-IPPSSession.
+    2. Get-VivaModuleFeature now returns information about ParentFeature, ChildFeature, and PolicyModes. These values represents parent and child features of a Viva App feature along with available enablement modes for policies for the feature.  
+    3. Added a new parameter IsUserOptedInByDefault in Add-VivaModuleFeaturePolicy and Update-VivaModuleFeaturePolicy cmdlets and its return value in all VivaModuleFeaturePolicy cmdlets. The value represents if by default, users are opted in/out by the policy if the user has not set a preference. This parameter can be used to set up complex policies, such as keeping the feature enabled in your tenant while opting out the impacted users by default, effectively soft disabling the feature for those users.
+    4. Deprecated Get-VivaFeatureCategory cmdlet and all category-related parameters and return values (CategoryId, IsCategoryEnabled).
+v3.7.2 :
+    1. Added a new parameter -DisableWAM to the Connect-ExchangeOnline cmdlet, which disables the Web Account Manager (WAM).
+v3.7.1 :
+    1. Introduced a new property named ExoExchangeSecurityDescriptor in Get-ExoMailbox response, that is similar to ExchangeSecurityDescriptor property in Get-Mailbox response.
+    2. Added new cmdlets Add-VivaOrgInsightsDelegatedRole, Get-VivaOrgInsightsDelegatedRole, and Remove-VivaOrgInsightsDelegatedRole for supporting Viva Org Insights Delegation feature.
+ 
+---------------------------------------------------------------------------------------------</releaseNotes>
+    <copyright>(c) 2021 Microsoft. All rights reserved.</copyright>
+    <tags>Exchange ExchangeOnline EXO EXOV2 EXOV3 Mailbox Management PSModule PSIncludes_Cmdlet PSCmdlet_Add-VivaModuleFeaturePolicy PSCmdlet_Add-VivaOrgInsightsDelegatedRole PSCmdlet_Get-ConnectionInformation PSCmdlet_Get-DefaultTenantBriefingConfig PSCmdlet_Get-DefaultTenantMyAnalyticsFeatureConfig PSCmdlet_Get-EXOCasMailbox PSCmdlet_Get-EXOMailbox PSCmdlet_Get-EXOMailboxFolderPermission PSCmdlet_Get-EXOMailboxFolderStatistics PSCmdlet_Get-EXOMailboxPermission PSCmdlet_Get-EXOMailboxStatistics PSCmdlet_Get-EXOMobileDeviceStatistics PSCmdlet_Get-EXORecipient PSCmdlet_Get-EXORecipientPermission PSCmdlet_Get-MyAnalyticsFeatureConfig PSCmdlet_Get-UserBriefingConfig PSCmdlet_Get-VivaFeatureCategory PSCmdlet_Get-VivaInsightsSettings PSCmdlet_Get-VivaModuleFeature PSCmdlet_Get-VivaModuleFeatureEnablement PSCmdlet_Get-VivaModuleFeaturePolicy PSCmdlet_Get-VivaOrgInsightsDelegatedRole PSCmdlet_Remove-VivaModuleFeaturePolicy PSCmdlet_Remove-VivaOrgInsightsDelegatedRole PSCmdlet_Set-DefaultTenantBriefingConfig PSCmdlet_Set-DefaultTenantMyAnalyticsFeatureConfig PSCmdlet_Set-MyAnalyticsFeatureConfig PSCmdlet_Set-UserBriefingConfig PSCmdlet_Set-VivaInsightsSettings PSCmdlet_Update-VivaModuleFeaturePolicy PSIncludes_Function PSFunction_Connect-ExchangeOnline PSFunction_Connect-IPPSSession PSFunction_Disconnect-ExchangeOnline PSCommand_Add-VivaModuleFeaturePolicy PSCommand_Add-VivaOrgInsightsDelegatedRole PSCommand_Get-ConnectionInformation PSCommand_Get-DefaultTenantBriefingConfig PSCommand_Get-DefaultTenantMyAnalyticsFeatureConfig PSCommand_Get-EXOCasMailbox PSCommand_Get-EXOMailbox PSCommand_Get-EXOMailboxFolderPermission PSCommand_Get-EXOMailboxFolderStatistics PSCommand_Get-EXOMailboxPermission PSCommand_Get-EXOMailboxStatistics PSCommand_Get-EXOMobileDeviceStatistics PSCommand_Get-EXORecipient PSCommand_Get-EXORecipientPermission PSCommand_Get-MyAnalyticsFeatureConfig PSCommand_Get-UserBriefingConfig PSCommand_Get-VivaFeatureCategory PSCommand_Get-VivaInsightsSettings PSCommand_Get-VivaModuleFeature PSCommand_Get-VivaModuleFeatureEnablement PSCommand_Get-VivaModuleFeaturePolicy PSCommand_Get-VivaOrgInsightsDelegatedRole PSCommand_Remove-VivaModuleFeaturePolicy PSCommand_Remove-VivaOrgInsightsDelegatedRole PSCommand_Set-DefaultTenantBriefingConfig PSCommand_Set-DefaultTenantMyAnalyticsFeatureConfig PSCommand_Set-MyAnalyticsFeatureConfig PSCommand_Set-UserBriefingConfig PSCommand_Set-VivaInsightsSettings PSCommand_Update-VivaModuleFeaturePolicy PSCommand_Connect-ExchangeOnline PSCommand_Connect-IPPSSession PSCommand_Disconnect-ExchangeOnline</tags>
+    <dependencies>
+      <dependency id="PackageManagement" version="1.0.0.1" />
+      <dependency id="PowerShellGet" version="1.0.0.1" />
+    </dependencies>
+  </metadata>
+</package>

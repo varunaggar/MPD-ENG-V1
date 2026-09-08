@@ -1,0 +1,65 @@
+================================================================================
+  M365 Permissions Sync — Log File
+  Process  : Invoke-UserBaselineLoad
+  Started  : 2026-06-02 21:54:30 UTC
+  Host     : 
+  User     : 
+  Log File : ./Logs/Invoke-UserBaselineLoad_2026-06-02_21-54-30.log
+================================================================================
+
+2026-06-02 21:54:30 [INFO ] Logging initialised — log file: ./Logs/Invoke-UserBaselineLoad_2026-06-02_21-54-30.log
+2026-06-02 21:54:30 [INFO ] ─── Invoke-UserBaselineLoad ─────────────────────────────────────
+2026-06-02 21:54:30 [INFO ] Config   : /Users/varunaggarwal/Documents/Code/MPD-ENG-V1/config.xml
+2026-06-02 21:54:30 [INFO ] Server   : mpd-sql-01.database.windows.net
+2026-06-02 21:54:30 [INFO ] Database : mpd-db01
+2026-06-02 21:54:30 [INFO ] Tenant   : 086b944f-0278-4374-8dfe-305c4b5d1d70
+2026-06-02 21:54:30 [INFO ] ─── Dependency Validation ───────────────────────────────────────
+2026-06-02 21:54:30 [INFO ] Validating required dependencies in local folder: /Users/varunaggarwal/Documents/Code/MPD-ENG-V1/Modules
+2026-06-02 21:54:30 [INFO ] Checking dependency: Az.Accounts (>= 3.0.0)
+2026-06-02 21:54:30 [INFO ] Successfully imported Az.Accounts version 5.4.1 from local path
+2026-06-02 21:54:30 [INFO ] Checking dependency: ExchangeOnlineManagement (>= 3.4.0)
+2026-06-02 21:54:31 [INFO ] Successfully imported ExchangeOnlineManagement version 3.9.2 from local path
+2026-06-02 21:54:31 [INFO ] All dependencies validated and loaded successfully.
+2026-06-02 21:54:31 [INFO ] ─── Authentication ──────────────────────────────────────────────
+2026-06-02 21:54:31 [INFO ] Establishing Azure connection (AuthType: Secret, Tenant: 086b944f-0278-4374-8dfe-305c4b5d1d70, AppId: 1dc04941-89d3-4e9d-8f25-8c4b9f74a7e1)...
+2026-06-02 21:54:32 [INFO ] Successfully authenticated to Azure using client secret auth.
+2026-06-02 21:54:32 [INFO ] Service principal connected
+2026-06-02 21:54:32 [INFO ] Graph context initialised (BaseUrl=https://graph.microsoft.com/v1.0)
+2026-06-02 21:54:32 [INFO ] SQL context initialised (Server=mpd-sql-01.database.windows.net, DB=mpd-db01)
+2026-06-02 21:54:32 [INFO ] Acquiring SQL access token...
+2026-06-02 21:54:32 [INFO ] SQL token acquired. Valid until 06/02/2026 21:49:31 UTC
+2026-06-02 21:54:32 [INFO ] SQL login to [mpd-db01] as: 1dc04941-89d3-4e9d-8f25-8c4b9f74a7e1
+2026-06-02 21:54:33 [INFO ] Run ID: 5e699d0b-a359-469a-ad91-a3b9ef905aaa
+2026-06-02 21:54:33 [INFO ] ─── Phase 1 — Graph user fetch ──────────────────────────────────
+2026-06-02 21:54:33 [INFO ] Fetching page 1 from Graph...
+2026-06-02 21:54:33 [INFO ] Acquiring Graph access token...
+2026-06-02 21:54:33 [INFO ] Graph token acquired. Valid until 06/03/2026 20:44:32 UTC
+2026-06-02 21:54:33 [INFO ] Paged request complete: 1 pages, 21 total objects
+2026-06-02 21:54:33 [INFO ] Graph returned 21 users in 0.4s
+2026-06-02 21:54:33 [INFO ] ─── Phase 2 — SQL upsert ────────────────────────────────────────
+2026-06-02 21:54:33 [INFO ] SQL login to [mpd-db01] as: 1dc04941-89d3-4e9d-8f25-8c4b9f74a7e1
+2026-06-02 21:54:34 [INFO ] SQL upsert complete in 0.7s — 21 upserted, 0 errors
+2026-06-02 21:54:34 [INFO ] ─── Phase 3 — Capture delta token ───────────────────────────────
+2026-06-02 21:54:34 [INFO ] Fetching delta page 1...
+2026-06-02 21:54:34 [INFO ] Fetching delta page 2...
+2026-06-02 21:54:34 [INFO ] Delta query complete: 2 pages, 40 changed objects
+2026-06-02 21:54:34 [INFO ] SQL login to [mpd-db01] as: 1dc04941-89d3-4e9d-8f25-8c4b9f74a7e1
+2026-06-02 21:54:34 [INFO ] Delta token saved (0.4s, 40 objects consumed)
+2026-06-02 21:54:34 [INFO ] SQL login to [mpd-db01] as: 1dc04941-89d3-4e9d-8f25-8c4b9f74a7e1
+2026-06-02 21:54:34 [INFO ] 
+2026-06-02 21:54:34 [INFO ] ── Run Summary 
+2026-06-02 21:54:34 [INFO ] ───────────────────────────────────────────────
+2026-06-02 21:54:34 [INFO ]   Errors                         0
+2026-06-02 21:54:34 [INFO ]   Run ID                         5e699d0b-a359-469a-ad91-a3b9ef905aaa
+2026-06-02 21:54:34 [INFO ]   Users upserted                 21
+2026-06-02 21:54:34 [INFO ]   Users processed                21
+2026-06-02 21:54:34 [INFO ]   Token captured                 True
+2026-06-02 21:54:34 [INFO ]   Status                         Success
+2026-06-02 21:54:34 [INFO ]   Duration                       0.03 min
+2026-06-02 21:54:34 [INFO ] ─────────────────────────────────────────────────────────────
+2026-06-02 21:54:34 [INFO ] 
+
+================================================================================
+  Status   : Success
+  Finished : 2026-06-02 21:54:34 UTC
+================================================================================

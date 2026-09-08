@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    M365 Permissions Sync — Configuration File
+    ===========================================
+    All settings for the sync solution are stored here.
+    Replace every REPLACE-WITH-* placeholder before first run.
+
+    Certificate setup:
+      1. Create a self-signed certificate (or use your PKI):
+         $cert = New-SelfSignedCertificate -Subject "CN=M365PermSync" `
+                     -CertStoreLocation "Cert:\LocalMachine\My" `
+                     -KeyExportPolicy Exportable -KeySpec Signature `
+                     -KeyLength 2048 -HashAlgorithm SHA256 `
+                     -NotAfter (Get-Date).AddYears(2)
+      2. Export the public key (.cer) and upload to the Entra app registration.
+      3. Copy the thumbprint into CertificateThumbprint below.
+-->
+<M365PermsSyncConfig>
+  <General>
+    <Environment>ENG</Environment>
+    <Organisation>uccloud.uk</Organisation>
+  </General>
+  <Authentication> <!-- Authentication mode: Certificate | Secret | ManagedIdentity | User -->
+    <AuthType>Secret</AuthType>
+    <!-- <TenantID>c2efc329-9485-4475-bdc6-267f4b9954ef</TenantID> -->
+    <TenantId>086b944f-0278-4374-8dfe-305c4b5d1d70</TenantId>
+    <AppId>1dc04941-89d3-4e9d-8f25-8c4b9f74a7e1</AppId>
+    <!-- <AppID>29aacb3a-c35b-4f76-a071-835936475a48</AppID> -->
+    <CertificateThumbprint>12345</CertificateThumbprint>
+    <CertificateStoreLocation>LocalMachine</CertificateStoreLocation>
+    <CertificateStoreName>My</CertificateStoreName>
+    <ClientSecret>Rda8Q~UB_hHTsj9ZdYcPsayPGRK02rM2GOIlOazx</ClientSecret>
+    <!-- Managed identity auth (optional user-assigned client id) -->
+    <!-- <ClientSecret>MI98Q~hPuhCuK46zr7aUlS0kVNJHPFliXnd8BbeL</ClientSecret> -->
+    <ManagedIdentityClientId></ManagedIdentityClientId>
+    <UserPrincipalName></UserPrincipalName>
+  </Authentication>
+  <Database>
+    <Server>mpd-sql-01.database.windows.net</Server>
+    <Name>mpd-db01</Name>
+    <TargetTenantId>c2efc329-9485-4475-bdc6-267f4b9954ef</TargetTenantId>
+    <ConnectionTimeoutSec>30</ConnectionTimeoutSec>
+    <CommandTimeoutSec>120</CommandTimeoutSec>
+  </Database>
+  <Logging>
+    <Directory>./Logs</Directory>
+    <RetentionDays>30</RetentionDays>
+    <!-- Log level: Info | Warning | Error -->
+    <Level>Info</Level>
+    <!-- Windows Event Log integration -->
+    <LogToEventLog>false</LogToEventLog>
+    <EventSource>M365PermSync</EventSource>
+  </Logging>
+  <Graph>
+    <BaseUrl>https://graph.microsoft.com/v1.0</BaseUrl>
+    <TokenScope>https://graph.microsoft.com/.default</TokenScope>
+    <PageSize>999</PageSize> <!-- Number of objects per page ($top) for paged requests -->
+    <MaxRetries>5</MaxRetries> <!-- Maximum retry attempts on transient failures (429, 5xx) -->
+    <ThrottleBackoffMaxSec>300</ThrottleBackoffMaxSec> <!-- Hard cap on Retry-After backoff in seconds (avoids very long waits) -->
+  </Graph>
+  <ExchangeOnline>
+    <!-- Authentication mode: Certificate | Secret | ManagedIdentity | User -->
+    <AuthType>Certificate</AuthType>
+    <MailboxTypes>UserMailbox,SharedMailbox</MailboxTypes>
+    <Organisation>x7m2c.onmicrosoft.com</Organisation>
+    <ClientSecret>Rda8Q~UB_hHTsj9ZdYcPsayPGRK02rM2GOIlOazx</ClientSecret>
+    <AppId>1dc04941-89d3-4e9d-8f25-8c4b9f74a7e1</AppId>
+    <!-- Batch size for processing mailboxes through SQL MERGE -->
+    <SqlBatchSize>500</SqlBatchSize>
+  </ExchangeOnline>
+  <!--
+    Exchange Online Admin API (REST-based, replaces legacy EWS scenarios)
+    Required app permission: Exchange.ManageAsAppV2
+    Token resource: https://outlook.office365.com/
+    Ref: https://learn.microsoft.com/en-us/exchange/reference/admin-api-get-started
+  -->
+  <AdminApi>
+    <!-- Base URL without trailing slash. TenantId is appended at runtime. -->
+    <BaseUrl>https://outlook.office365.com/adminapi/v2.0</BaseUrl>
+    <!-- Maximum retry attempts on transient failures (429, 401, 5xx) -->
+    <MaxRetries>5</MaxRetries>
+    <!-- Hard cap on Retry-After backoff in seconds -->
+    <ThrottleBackoffMaxSec>300</ThrottleBackoffMaxSec>
+  </AdminApi>
+
+  <!-- Sync behaviour -->
+  <Sync>
+    <!-- How far back the delta sync looks when constructing the WhenChangedUTC
+         filter (minutes). Set slightly wider than the scheduled task interval
+         to ensure overlap and no missed changes. -->
+    <DeltaOverlapMinutes>30</DeltaOverlapMinutes>
+  </Sync>
+
+  <!-- Dependencies -->
+  <Dependencies>
+    <!-- Modules required to be present in the local \Modules folder -->
+    <Module Name="Az.Accounts" MinimumVersion="3.0.0" />
+    <Module Name="ExchangeOnlineManagement" MinimumVersion="3.4.0" />
+  </Dependencies>
+
+</M365PermsSyncConfig>
